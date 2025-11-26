@@ -13,15 +13,16 @@ public class Order {
     public String formOrderBill(Cart cart) {
 
         StringBuilder builder = new StringBuilder();
-        builder.append("Order number ").append(this.id)
-            .append(" for customer ").append(this.customer)
-            .append("\n------------------\n");
+        builder.append("Order number ").append(id)
+                .append(" for customer ").append(customer)
+                .append("\n------------------\n");
 
-        double total = 0;
+        double sum = 0.0;
 
-        for (int i = 0; i < cart.getSize(); i++) {
+        for (int i = 0; i < cart.size(); i++) {
 
-            Item item = cart.getItem(i);
+            Item item = cart.get(i);
+            sum += item.getPrice();
 
             builder.append("Item id: ").append(item.getId())
                     .append(" name: ").append(item.getName())
@@ -30,7 +31,7 @@ public class Order {
         }
 
         builder.append("------------------\n");
-        builder.append("Total sum: ").append(total);
+        builder.append("Total sum: ").append(sum);
 
 
         return builder.toString();
