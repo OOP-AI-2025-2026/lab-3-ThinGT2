@@ -5,57 +5,60 @@ import java.util.Arrays;
 public class Cart {
 
     private Item[] contents;
-    private int index;
+    private int index = 0;
 
     public Cart(Item[] contents) {
         this.contents = contents;
     }
 
+    public Cart(int capacity) {
+        if (capacity <= 0) throw new IllegalArgumentException("Capacity must be more than 0");
+        this.contents = new Item[capacity];
+    }
+    
     public void add(Item item) {
-        if (isFull()) {
-            System.out.println("Cart is full!");
-            return;
-        }
-        this.contents[this.index] = item;
-        this.index++;
+        if (item == null) return;
+        if (isFull()) return;
+
+        contents[index] = item;
+        index++;
     }
 
     public void removeById(long id) {
-        if (this.index == 0)
+        int foundIndex = findIndexById(id);
+        if (foundIndex == -1)
             return;
 
-        int pos = findItem(id);
-        if (pos == -1)
-            return;
-        shiftLeft(pos);
+        shiftLeft(foundIndex);
+        index--;
     }
         
-        private int findItem(long id) {
+        private int findIndexById(long id) {
         for (int i = 0; i < this.index; i++) {
-            if (this.contents[i].getId() == id)
+            if (contents[i].getId() == id) {
                 return i;
+        }
         }
         return -1;
     }
 
     private void shiftLeft(int start) {
-        for (int i = start; i < this.index - 1; i++) {
-            this.contents[i] = this.contents[i + 1];
+        for (int i = start; i < index - 1; i++) {
+            contents[i] = contents[i + 1];
         }
-        this.contents[this.index - 1] = null;
-        this.index--;
+        contents[index - 1] = null;
     }
 
     public boolean isFull() {
-        return this.index == this.contents.length;
+        return index == contents.length;
     }
 
     public int getSize() {
-        return this.index;
+        return index;
     }
 
     public Item getItem(int i) {
-        return this.contents[i];
+        return contents[i];
     }
 
     @Override
