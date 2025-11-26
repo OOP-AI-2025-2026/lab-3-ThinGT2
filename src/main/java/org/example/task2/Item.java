@@ -12,6 +12,19 @@ public class Item {
         this.price = _price;
     }
 
+    public long getId() {
+        return this.id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public double getPrice() {
+        return this.price;
+    }
+
+
     @Override
     public String toString() {
         return "Item{" +
