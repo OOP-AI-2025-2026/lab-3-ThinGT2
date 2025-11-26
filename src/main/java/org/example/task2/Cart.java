@@ -4,60 +4,61 @@ import java.util.Arrays;
 
 public class Cart {
 
-    public Item[] contents;
-    int index;
+    private Item[] contents;
+    private int index = 0;
 
-    Cart(Item[] _contents) {
-        this.contents = _contents;
+    public Cart(Item[] contents) {
+        this.contents = contents;
     }
 
-    public void removeById(int itemIndex) {
-
-        if (index == 0)
-            return;
-
-        int foundItemIndex = findItemInArray(contents[itemIndex]);
-
-        if (foundItemIndex == -1)
-            return;
-
-        if (foundItemIndex == index - 1) {
-            contents[index - 1] = null;
-            index--;
-            return;
-        }
-
-        shiftArray(foundItemIndex);
+    public Cart(int capacity) {
+        if (capacity <= 0) throw new IllegalArgumentException("Capacity must be more than 0");
+        this.contents = new Item[capacity];
     }
-
-    public void shiftArray(int itemIndex) {
-        for (int i = itemIndex; i < index - 1; i++) {
-            contents[i] = contents[i + 1];
-        }
-        contents[index-1] = null;
-        index--;
-    }
-
-    public int findItemInArray(Item item) {
-        for (int i = 0; i < index; i++) {
-            if (contents[i].id == item.id) {
-                return i;
-            }
-        }
-
-        return -1;
-    }
-
-    void add(Item item) {
-        if (isCartFull())
-            return;
+    
+    public void add(Item item) {
+        if (item == null) return;
+        if (isFull()) return;
 
         contents[index] = item;
         index++;
     }
 
-    public boolean isCartFull() {
+    public void removeById(long id) {
+        int foundIndex = findIndexById(id);
+        if (foundIndex == -1)
+            return;
+
+        shiftLeft(foundIndex);
+        index--;
+    }
+        
+        private int findIndexById(long id) {
+        for (int i = 0; i < this.index; i++) {
+            if (contents[i].getId() == id) {
+                return i;
+        }
+        }
+        return -1;
+    }
+
+    private void shiftLeft(int start) {
+        for (int i = start; i < index - 1; i++) {
+            contents[i] = contents[i + 1];
+        }
+        contents[index - 1] = null;
+    }
+
+    public boolean isFull() {
         return index == contents.length;
+    }
+
+    public int getSize() {
+        return index;
+    }
+
+    public Item getItem(int i) {
+        return contents[i];
     }
 
     @Override

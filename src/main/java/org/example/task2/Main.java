@@ -23,6 +23,7 @@ public class Main {
 
         Order order = new Order(1L, "John");
         String bill = order.formOrderBill(cart);
+
         System.out.println(bill);
     }
 }
