@@ -6,22 +6,39 @@ public class Item {
     public String name;
     public double price;
 
-    public Item(long _id, String _name, double _price) {
-        this.id = _id;
-        this.name = _name;
-        this.price = _price;
+    public Item(long id, String name, double price) {
+        setId(id);
+        setName(name);
+        setPrice(price);
     }
 
     public long getId() {
-        return this.id;
+        return id;
     }
 
+    private void setId(long id) {
+        if (id < 0) throw new IllegalArgumentException("Не може бути менше 0");
+        this.id = id;
+    }
+
+
     public String getName() {
-        return this.name;
+        return name;
+    }
+    
+    private void setName(String name) {
+        if (name == null || name.isBlank())
+            throw new IllegalArgumentException("Не може бути пустим");
+        this.name = name;
     }
 
     public double getPrice() {
-        return this.price;
+        return price;
+    }
+
+    private void setPrice(double price) {
+        if (price < 0) throw new IllegalArgumentException("Не може бути менше 0");
+        this.price = price;
     }
 
 
