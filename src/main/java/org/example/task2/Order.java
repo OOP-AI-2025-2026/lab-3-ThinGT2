@@ -23,7 +23,7 @@ public class Order {
 
             Item item = cart.getItem(i);
 
-            builder.append("Item id: ").append(item.getId());
+            builder.append("Item id: ").append(item.getId())
                     .append(" name: ").append(item.getName())
                     .append(" price: ").append(item.getPrice())
                     .append("\n");
