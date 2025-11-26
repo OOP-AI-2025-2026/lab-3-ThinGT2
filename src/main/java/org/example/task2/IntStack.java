@@ -14,42 +14,38 @@ public class IntStack {
 
     public void push(int value) {
         ensureCapacity();
-        this.data[this.size] = value;
-        this.size++;
+        data[size] = value;
+        size++;
     }
 
     public int pop() {
-        if (isEmpty()) {
-            throw new IllegalStateException("Stack is empty!");
-        }
-        this.size--;
-        return this.data[this.size];
+        if (isEmpty()) return 0;
+        size--;
+        return data[size];
     }
 
     public int peek() {
-        if (isEmpty()) {
-            throw new IllegalStateException("Stack is empty!");
-        }
-        return this.data[this.size - 1];
+        if (isEmpty()) return 0;
+        return data[size - 1];
     }
 
     public int size() {
-        return this.size;
+        return size;
     }
 
     public boolean isEmpty() {
-        return this.size == 0;
+        return size == 0;
     }
 
     public void clear() {
-        this.size = 0;
+        size = 0;
     }
 
     private void ensureCapacity() {
-        if (this.size == this.data.length) {
-            int[] newArray = new int[this.data.length * 2];
-            System.arraycopy(this.data, 0, newArray, 0, this.data.length);
-            this.data = newArray;
+        if (size == data.length) {
+            int[] newArray = new int[data.length * 2];
+            System.arraycopy(data, 0, newArray, 0, data.length);
+            data = newArray;
         }
     }
 }
