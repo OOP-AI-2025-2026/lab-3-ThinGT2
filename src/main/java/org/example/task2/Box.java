@@ -11,26 +11,21 @@ public class Box {
 
 
     private void setLength(double length) {
-        validate(length, "Length");
+        if (length <= 0) throw new IllegalArgumentException("Довжина більше 0");
         this.length = length;
     }
 
     private void setWidth(double width) {
-        validate(width, "Width");
+        if (width <= 0) throw new IllegalArgumentException("Ширина більше 0");
         this.width = width;
     }
 
     private void setHeight(double height) {
-        validate(height, "Height");
+        if (height <= 0) throw new IllegalArgumentException("Висота більше 0");
         this.height = height;
     }
 
  
-    private void validate(double value, String name) {
-        if (value <= 0) {
-            throw new IllegalArgumentException(name + " більше ніж 0 ");
-        }
-    }
 
  
     public double getSurfaceArea() {
@@ -39,7 +34,7 @@ public class Box {
 
  
     public double getLateralSurfaceArea() {
-        return 2 * (length * height + width * height);
+        return 2 * height * (length + width);
     }
 
     public double getVolume() {
